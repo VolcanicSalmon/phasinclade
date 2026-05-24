@@ -12,6 +12,8 @@ const FASTA_SOURCES = [
   { label: 'DM / gruden 21nt', genome: 'DM', dataset: 'gruden_21nt', path: 'jbrowse/jbdm2/srnaseq/gruden/gruden_passdeg_21nt.dedup.fa' },
   { label: 'DM / gruden 22nt', genome: 'DM', dataset: 'gruden_22nt', path: 'jbrowse/jbdm2/srnaseq/gruden/gruden_passdeg_22nt.dedup.fa' },
   { label: 'DM / gruden 23nt', genome: 'DM', dataset: 'gruden_23nt', path: 'jbrowse/jbdm2/srnaseq/gruden/gruden_passdeg_23nt.dedup.fa' },
+  { label: 'Sly mature miRNA', genome: 'Sly', dataset: 'sly_mature', path: 'data/sly_mature.fa' },
+  { label: 'Stu mature miRNA', genome: 'Stu', dataset: 'stu_mature', path: 'data/stu_mature.fa' },
 ];
 
 function normalize(seq) {
