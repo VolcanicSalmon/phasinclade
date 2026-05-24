@@ -156,6 +156,11 @@
   margin-bottom: 20px;
 }
 
+.blast-mode-bar {
+  display: flex;
+  gap: 20px;
+}
+
 .blast-textarea {
   width: 100%;
   font-family: monospace;

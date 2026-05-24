@@ -70,9 +70,17 @@ function searchQuery(querySeq, fastaEntries, maxMismatches) {
   return results.sort((a, b) => a.mismatches - b.mismatches);
 }
 
+function searchHeader(queryText, fastaEntries) {
+  const q = queryText.toLowerCase();
+  return fastaEntries
+    .filter(({ name }) => name.toLowerCase().includes(q))
+    .map(({ name, seq }) => ({ name, seq }));
+}
+
 export default function BlastPage() {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
+  const [searchMode, setSearchMode] = useState('sequence');
   const [maxMismatches, setMaxMismatches] = useState(0);
   const [autoTranscribe, setAutoTranscribe] = useState(false);
   const [results, setResults] = useState(null);
@@ -83,9 +91,6 @@ export default function BlastPage() {
   async function handleSearch() {
     const raw = query.trim();
     if (!raw) return;
-    const seq = raw.startsWith('>') ? raw.split('\n').slice(1).join('') : raw;
-    const qNorm = normalize(seq);
-    if (!qNorm) { setError('No valid sequence found (A/T/U/G/C only).'); return; }
 
     setSearching(true);
     setError(null);
@@ -99,8 +104,18 @@ export default function BlastPage() {
           if (!res.ok) throw new Error(`Failed to load ${source.label}: HTTP ${res.status}`);
           cacheRef.current[source.path] = parseFasta(await res.text());
         }
-        const hits = searchQuery(qNorm, cacheRef.current[source.path], maxMismatches);
-        hits.forEach(h => allResults.push({ ...h, ...source }));
+        const entries = cacheRef.current[source.path];
+
+        if (searchMode === 'header') {
+          const hits = searchHeader(raw, entries);
+          hits.forEach(h => allResults.push({ ...h, ...source }));
+        } else {
+          const seq = raw.startsWith('>') ? raw.split('\n').slice(1).join('') : raw;
+          const qNorm = normalize(seq);
+          if (!qNorm) { setError('No valid sequence found (A/T/U/G/C only).'); setSearching(false); return; }
+          const hits = searchQuery(qNorm, entries, maxMismatches);
+          hits.forEach(h => allResults.push({ ...h, ...source }));
+        }
       }
       setResults(allResults);
     } catch (err) {
@@ -125,26 +140,41 @@ export default function BlastPage() {
       </div>
 
       <div className="blast-panel">
+        <div className="blast-mode-bar">
+          {['sequence', 'header'].map(m => (
+            <label key={m} className="slice-radio">
+              <input type="radio" name="searchMode" value={m}
+                checked={searchMode === m} onChange={() => { setSearchMode(m); setResults(null); }} />
+              {m === 'sequence' ? 'Sequence search' : 'Header / ID search'}
+            </label>
+          ))}
+        </div>
         <textarea
           className="blast-textarea"
-          placeholder="Paste sequence here (FASTA or plain DNA/RNA)..."
+          placeholder={searchMode === 'sequence'
+            ? 'Paste sequence here (FASTA or plain DNA/RNA)…'
+            : 'Type cluster name, coordinates, or any header text…'}
           value={query}
           onChange={e => setQuery(e.target.value)}
-          rows={5}
+          rows={searchMode === 'sequence' ? 5 : 2}
         />
         <div className="blast-controls">
-          <label className="blast-control-label">
-            Max mismatches:
-            <select value={maxMismatches} onChange={e => setMaxMismatches(Number(e.target.value))}
-              className="blast-select">
-              {[0, 1, 2, 3].map(n => <option key={n} value={n}>{n}</option>)}
-            </select>
-          </label>
-          <label className="slice-checkbox">
-            <input type="checkbox" checked={autoTranscribe}
-              onChange={e => setAutoTranscribe(e.target.checked)} />
-            Auto-transcription (T→U)
-          </label>
+          {searchMode === 'sequence' && (
+            <>
+              <label className="blast-control-label">
+                Max mismatches:
+                <select value={maxMismatches} onChange={e => setMaxMismatches(Number(e.target.value))}
+                  className="blast-select">
+                  {[0, 1, 2, 3].map(n => <option key={n} value={n}>{n}</option>)}
+                </select>
+              </label>
+              <label className="slice-checkbox">
+                <input type="checkbox" checked={autoTranscribe}
+                  onChange={e => setAutoTranscribe(e.target.checked)} />
+                Auto-transcription (T→U)
+              </label>
+            </>
+          )}
           <button className="blast-btn" onClick={handleSearch} disabled={searching || !query.trim()}>
             {searching ? 'Searching…' : 'Search'}
           </button>
@@ -167,9 +197,7 @@ export default function BlastPage() {
             <thead>
               <tr>
                 <th>Sequence ID</th>
-                <th>Strand</th>
-                <th>Query pos.</th>
-                <th>Mismatches</th>
+                {searchMode === 'sequence' && <><th>Strand</th><th>Query pos.</th><th>Mismatches</th></>}
                 <th>sRNA sequence</th>
               </tr>
             </thead>
@@ -177,9 +205,9 @@ export default function BlastPage() {
               {group.hits.map((hit, i) => (
                 <tr key={i}>
                   <td className="blast-seqid">{hit.name}</td>
-                  <td>{hit.strand}</td>
-                  <td>{hit.queryStart}–{hit.queryEnd}</td>
-                  <td>{hit.mismatches}</td>
+                  {searchMode === 'sequence' && (
+                    <><td>{hit.strand}</td><td>{hit.queryStart}–{hit.queryEnd}</td><td>{hit.mismatches}</td></>
+                  )}
                   <td className="blast-seq">{autoTranscribe ? toRna(hit.seq) : hit.seq}</td>
                 </tr>
               ))}
