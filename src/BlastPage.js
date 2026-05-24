@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 
 const FASTA_SOURCES = [
+  { label: 'RH / baldrich 21nt', genome: 'RH', dataset: 'baldrich_21nt', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_21nt.fa' },
+  { label: 'RH / baldrich 22nt', genome: 'RH', dataset: 'baldrich_22nt', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_22nt.fa' },
+  { label: 'RH / baldrich 23nt', genome: 'RH', dataset: 'baldrich_23nt', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_23nt.fa' },
   { label: 'RH / pare_pinfes_ctrl', genome: 'RH', dataset: 'pare_pinfes_ctrl', path: 'jbrowse/jbrh/srnaseq/pare_pinfes_ctrl.inrh/Results_21_23.fa' },
   { label: 'RH / pare_pinfes_infec', genome: 'RH', dataset: 'pare_pinfes_infec', path: 'jbrowse/jbrh/srnaseq/pare_pinfes_infec.inrh/Results_21_23.fa' },
   { label: 'DM / pare_pinfes_ctrl', genome: 'DM', dataset: 'pare_pinfes_ctrl', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_ctrl.indm/Results_21_23.fa' },
