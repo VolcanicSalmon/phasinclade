@@ -1,0 +1,28 @@
+# Dependencies
+/node_modules
+
+# Build output
+/build
+/dist
+
+# Environment files
+.env
+.env.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# IDE files
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+public/jbrowse/
+

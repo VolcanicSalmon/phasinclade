@@ -1,0 +1,9 @@
+services:
+  ppr-app:
+    image: ppr-app
+    ports:
+      - "3000:80"
+    volumes:
+      # Unzip jbrowse.zip next to this file, then run: docker compose up
+      - ./jbrowse:/usr/share/nginx/html/jbrowse:ro
+    restart: unless-stopped

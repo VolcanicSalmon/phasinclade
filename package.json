@@ -1,0 +1,60 @@
+{
+  "name": "hello.app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fontsource/roboto": "^5.2.10",
+    "@jbrowse/react-linear-genome-view": "^3.1.0",
+    "@jbrowse/react-linear-genome-view2": "^4.1.14",
+    "@mui/material": "^7.3.9",
+    "@ncbijs/blast": "^0.1.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^13.5.0",
+    "cytoscape": "^3.33.1",
+    "cytoscape-cose-bilkent": "^4.1.0",
+    "plotly.js": "^3.4.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router": "^7.13.1",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.10.2",
+    "reactreejs": "^1.0.3",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "prebuild": "rm -rf build",
+    "postbuild": "mkdir -p build/data build/jbrowse && cp -r public/data build/ && cp -r public/jbrowse build/",
+    "prepare": "npm run build",
+    "deploy": "npm run build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1"
+  }
+}
