@@ -12,10 +12,10 @@ export default function BrowserPage() {
   const pprData = category === 'rh' ? rhPprData : dmPprData;
 
   const [sliceDatasets, setSliceDatasets] = useState({
-    baldrich: true, gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
+    mir: false, baldrich: true, gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
   });
   const [dmSliceDatasets, setDmSliceDatasets] = useState({
-    gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
+    mir: false, gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
   });
   const [jbrowseUrl, setJbrowseUrl] = useState(null);
   const [error, setError] = useState(null);
@@ -36,6 +36,7 @@ export default function BrowserPage() {
     let config, tracks;
     if (category === 'rh') {
       const sliceTracks = [
+        ...(sliceDatasets.mir ? ['slice_mir'] : []),
         ...(sliceDatasets.baldrich ? ['slice_baldrich'] : []),
         ...(sliceDatasets.gruden ? ['slice_gruden'] : []),
         ...['pare_pinfes_ctrl', 'pare_pinfes_infec'].filter(d => sliceDatasets[d]).map(d => `slice_${d}`)
@@ -44,6 +45,7 @@ export default function BrowserPage() {
       tracks = ['RH_gene_models', 'ppr_transcript_regions', 'baldrich_condensed_sRNA', ...sliceTracks].join(',');
     } else {
       const dmSliceTracks = [
+        ...(dmSliceDatasets.mir ? ['DM_slice_mir'] : []),
         ...(dmSliceDatasets.gruden ? ['DM_slice_gruden'] : []),
         ...(dmSliceDatasets.pare_pinfes_ctrl ? ['DM_slice_pare_pinfes_ctrl'] : []),
         ...(dmSliceDatasets.pare_pinfes_infec ? ['DM_slice_pare_pinfes_infec'] : [])
@@ -72,7 +74,7 @@ export default function BrowserPage() {
           <span className="slice-panel-title">Slice tracks</span>
           <div className="slice-group">
             <span className="slice-group-label">Dataset:</span>
-            {['baldrich', 'gruden', 'pare_pinfes_ctrl', 'pare_pinfes_infec'].map(d => (
+            {['mir', 'baldrich', 'gruden', 'pare_pinfes_ctrl', 'pare_pinfes_infec'].map(d => (
               <label key={d} className="slice-checkbox">
                 <input type="checkbox" checked={sliceDatasets[d]}
                   onChange={e => setSliceDatasets(prev => ({ ...prev, [d]: e.target.checked }))} />
@@ -88,7 +90,7 @@ export default function BrowserPage() {
           <span className="slice-panel-title">Slice tracks</span>
           <div className="slice-group">
             <span className="slice-group-label">Dataset:</span>
-            {['gruden', 'pare_pinfes_ctrl', 'pare_pinfes_infec'].map(d => (
+            {['mir', 'gruden', 'pare_pinfes_ctrl', 'pare_pinfes_infec'].map(d => (
               <label key={d} className="slice-checkbox">
                 <input type="checkbox" checked={dmSliceDatasets[d]}
                   onChange={e => setDmSliceDatasets(prev => ({ ...prev, [d]: e.target.checked }))} />
