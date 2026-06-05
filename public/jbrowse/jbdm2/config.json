@@ -111,7 +111,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/mir/cl_mir_leaf_dm_ppregion.bed",
+          "uri": "slice/mir/cl_mir_leaf_dm_ppregion2.bed",
           "locationType": "UriLocation"
         }
       },
