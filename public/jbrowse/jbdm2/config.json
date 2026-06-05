@@ -1,0 +1,164 @@
+{
+  "assemblies": [
+    {
+      "name": "DM_1-3_516_R44_potato_genome_assembly.v6.1",
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "DM_1-3_516_R44_potato_genome_assembly.v6.1-ReferenceSequenceTrack",
+        "adapter": {
+          "type": "IndexedFastaAdapter",
+          "fastaLocation": {
+            "uri": "DM_1-3_516_R44_potato_genome_assembly.v6.1.fa",
+            "locationType": "UriLocation"
+          },
+          "faiLocation": {
+            "uri": "DM_1-3_516_R44_potato_genome_assembly.v6.1.fa.fai",
+            "locationType": "UriLocation"
+          }
+        }
+      }
+    }
+  ],
+  "configuration": {},
+  "connections": [],
+  "defaultSession": {
+    "name": "New Session"
+  },
+  "tracks": [
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_gene_models",
+      "name": "DM gene models",
+      "adapter": {
+        "type": "Gff3Adapter",
+        "gffLocation": {
+          "uri": "DM_1-3_516_R44_potato.v6.1.hc_gene_models.gff3",
+          "locationType": "UriLocation"
+        }
+      },
+      "assemblyNames": [
+        "DM_1-3_516_R44_potato_genome_assembly.v6.1"
+      ]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_ppr_transcript_regions",
+      "name": "DM PPR transcript regions",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "DM_PPR_transcript_regions.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["PPR"],
+      "assemblyNames": [
+        "DM_1-3_516_R44_potato_genome_assembly.v6.1"
+      ]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_gruden",
+      "name": "gruden",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "gruden_passdeg_allnt.dedup.dm.sorted.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["sRNA"],
+      "assemblyNames": [
+        "DM_1-3_516_R44_potato_genome_assembly.v6.1"
+      ]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_pare_pinfes_ctrl",
+      "name": "pare_pinfes_ctrl",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "pare_pinfes_ctrl.indm_merged_alignments.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["sRNA"],
+      "assemblyNames": [
+        "DM_1-3_516_R44_potato_genome_assembly.v6.1"
+      ]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_pare_pinfes_infec",
+      "name": "pare_pinfes_infec",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "pare_pinfes_infec.indm_merged_alignments.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["sRNA"],
+      "assemblyNames": [
+        "DM_1-3_516_R44_potato_genome_assembly.v6.1"
+      ]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_mir",
+      "name": "miRNA slice",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "slice/mir/cl_mir_leaf_dm_ppregion.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "mir"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_gruden",
+      "name": "gruden slice",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "slice/gruden/gruden_passdeg_21_22_23nt.GSTAr.allenLT10.genome_slice_dmppregion.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "gruden"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_pare_pinfes_ctrl",
+      "name": "pare_pinfes_ctrl slice",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "slice/pare_pinfes_ctrl/merged_dm_in_ppr_region_21_23_clind.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "pare_pinfes_ctrl"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_pare_pinfes_infec",
+      "name": "pare_pinfes_infec slice",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "slice/pare_pinfes_infec/merged_dm_in_ppr_region_21_23_clind.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "pare_pinfes_infec"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    }
+  ]
+}
