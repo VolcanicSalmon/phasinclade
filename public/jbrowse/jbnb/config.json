@@ -1,0 +1,90 @@
+{
+  "assemblies": [
+    {
+      "name": "NbeHZ1_genome_1.0",
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "NbeHZ1_genome_1.0-ReferenceSequenceTrack",
+        "adapter": {
+          "type": "IndexedFastaAdapter",
+          "fastaLocation": {
+            "uri": "NbeHZ1_genome_1.0.fa",
+            "locationType": "UriLocation"
+          },
+          "faiLocation": {
+            "uri": "NbeHZ1_genome_1.0.fa.fai",
+            "locationType": "UriLocation"
+          }
+        }
+      }
+    }
+  ],
+  "configuration": {},
+  "connections": [],
+  "defaultSession": {
+    "name": "New Session"
+  },
+  "tracks": [
+    {
+      "type": "FeatureTrack",
+      "trackId": "NB_gene_models",
+      "name": "NB gene models",
+      "adapter": {
+        "type": "Gff3Adapter",
+        "gffLocation": {
+          "uri": "NbeHZ1_annotation_1.0.gff3",
+          "locationType": "UriLocation"
+        }
+      },
+      "assemblyNames": [
+        "NbeHZ1_genome_1.0"
+      ]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "NB_ppr_transcript_regions",
+      "name": "NB PPR transcript regions",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "NbeHZ1_ppr_transcript_regions.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["PPR"],
+      "assemblyNames": [
+        "NbeHZ1_genome_1.0"
+      ]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "NB_baksa",
+      "name": "baksa",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "merged_benth_in_ppr_region.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["sRNA"],
+      "assemblyNames": [
+        "NbeHZ1_genome_1.0"
+      ]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "NB_slice_baksa",
+      "name": "baksa slice",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "slice/baksa/merged_benth_in_ppr_region_21_23_clind.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "baksa"],
+      "assemblyNames": ["NbeHZ1_genome_1.0"]
+    }
+  ]
+}

@@ -3,19 +3,22 @@ import { useSearchParams, useNavigate } from 'react-router';
 import { useData } from './DataContext';
 
 export default function BrowserPage() {
-  const { rhPprData, dmPprData, loading } = useData();
+  const { rhPprData, dmPprData, nbPprData, loading } = useData();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const gene = searchParams.get('gene');
   const category = searchParams.get('cat') || 'rh';
-  const pprData = category === 'rh' ? rhPprData : dmPprData;
+  const pprData = category === 'rh' ? rhPprData : category === 'dm' ? dmPprData : nbPprData;
 
   const [sliceDatasets, setSliceDatasets] = useState({
     mir: false, baldrich: true, gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
   });
   const [dmSliceDatasets, setDmSliceDatasets] = useState({
     mir: false, gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
+  });
+  const [nbSliceDatasets, setNbSliceDatasets] = useState({
+    baksa: true
   });
   const [jbrowseUrl, setJbrowseUrl] = useState(null);
   const [error, setError] = useState(null);
@@ -43,6 +46,12 @@ export default function BrowserPage() {
       ];
       config = 'jbrh/config.json';
       tracks = ['RH_gene_models', 'ppr_transcript_regions', 'baldrich_condensed_sRNA', ...sliceTracks].join(',');
+    } else if (category === 'nb') {
+      const nbSliceTracks = [
+        ...(nbSliceDatasets.baksa ? ['NB_slice_baksa'] : [])
+      ];
+      config = 'jbnb/config.json';
+      tracks = ['NB_gene_models', 'NB_ppr_transcript_regions', 'NB_baksa', ...nbSliceTracks].join(',');
     } else {
       const dmSliceTracks = [
         ...(dmSliceDatasets.mir ? ['DM_slice_mir'] : []),
@@ -57,7 +66,7 @@ export default function BrowserPage() {
     const params = new URLSearchParams({ config, loc: `${ppr.chr}:${regionStart}-${regionEnd}`, tracks });
     const base = process.env.NODE_ENV === 'development' ? '' : process.env.PUBLIC_URL;
     setJbrowseUrl(`${base}/jbrowse/?${params.toString()}`);
-  }, [gene, pprData, category, sliceDatasets, dmSliceDatasets, loading]);
+  }, [gene, pprData, category, sliceDatasets, dmSliceDatasets, nbSliceDatasets, loading]);
 
   return (
     <div className="app-container">
@@ -94,6 +103,22 @@ export default function BrowserPage() {
               <label key={d} className="slice-checkbox">
                 <input type="checkbox" checked={dmSliceDatasets[d]}
                   onChange={e => setDmSliceDatasets(prev => ({ ...prev, [d]: e.target.checked }))} />
+                {d}
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {gene && category === 'nb' && (
+        <div className="slice-panel">
+          <span className="slice-panel-title">Slice tracks</span>
+          <div className="slice-group">
+            <span className="slice-group-label">Dataset:</span>
+            {['baksa'].map(d => (
+              <label key={d} className="slice-checkbox">
+                <input type="checkbox" checked={nbSliceDatasets[d]}
+                  onChange={e => setNbSliceDatasets(prev => ({ ...prev, [d]: e.target.checked }))} />
                 {d}
               </label>
             ))}

@@ -16,6 +16,7 @@ const FASTA_SOURCES = [
   { label: 'DM / gruden 22nt', genome: 'DM', dataset: 'gruden_22nt', path: 'jbrowse/jbdm2/srnaseq/gruden/gruden_passdeg_22nt.dedup.fa' },
   { label: 'DM / gruden 23nt', genome: 'DM', dataset: 'gruden_23nt', path: 'jbrowse/jbdm2/srnaseq/gruden/gruden_passdeg_23nt.dedup.fa' },
   { label: 'Solath mature miRNA', genome: 'Solath', dataset: 'solath_mature', path: 'data/solath_mature.fa' },
+  { label: 'NB / baksa (PPR)', genome: 'NB', dataset: 'baksa_ppr', path: 'jbrowse/jbnb/srnaseq/baksa/merged_benth_in_ppr_region_21_23.fa' },
 ];
 
 function normalize(seq) {

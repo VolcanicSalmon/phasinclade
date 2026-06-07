@@ -6,17 +6,18 @@ import { useData } from './DataContext';
 
 const CATEGORY_OPTIONS = [
   { value: 'rh', label: 'Potato RH' },
-  { value: 'dm', label: 'Potato DM' }
+  { value: 'dm', label: 'Potato DM' },
+  { value: 'nb', label: 'Benth HZ' }
 ];
 
 export default function TreePage() {
-  const { prunedNewick, rhPprData, dmPprData, rhTipsInTree, dmTipsInTree, loading, error } = useData();
+  const { prunedNewick, rhPprData, dmPprData, nbPprData, rhTipsInTree, dmTipsInTree, loading, error } = useData();
   const [selectedCategory, setSelectedCategory] = useState('rh');
   const [selectedGene, setSelectedGene] = useState(null);
   const treeRef = useRef(null);
   const navigate = useNavigate();
 
-  const pprData = selectedCategory === 'rh' ? rhPprData : dmPprData;
+  const pprData = selectedCategory === 'rh' ? rhPprData : selectedCategory === 'dm' ? dmPprData : nbPprData;
   const tipsInTree = selectedCategory === 'rh' ? rhTipsInTree : dmTipsInTree;
 
   const geneOptions = pprData.map(r => ({
