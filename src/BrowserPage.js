@@ -12,10 +12,12 @@ export default function BrowserPage() {
   const pprData = category === 'rh' ? rhPprData : category === 'dm' ? dmPprData : nbPprData;
 
   const [sliceDatasets, setSliceDatasets] = useState({
-    mir: false, baldrich: true, gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
+    mir: false, baldrich_ppr_slice: true, baldrich_cluster_slice: false, gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
   });
   const [dmSliceDatasets, setDmSliceDatasets] = useState({
-    mir: false, gruden: true, pare_pinfes_ctrl: false, pare_pinfes_infec: false
+    mir: false, gruden: true,
+    pare_pinfes_ctrl_ppr_slice: false, pare_pinfes_ctrl_cluster_slice: false,
+    pare_pinfes_infec_ppr_slice: false, pare_pinfes_infec_cluster_slice: false
   });
   const [nbSliceDatasets, setNbSliceDatasets] = useState({
     baksa: true
@@ -40,7 +42,8 @@ export default function BrowserPage() {
     if (category === 'rh') {
       const sliceTracks = [
         ...(sliceDatasets.mir ? ['slice_mir'] : []),
-        ...(sliceDatasets.baldrich ? ['slice_baldrich'] : []),
+        ...(sliceDatasets.baldrich_ppr_slice ? ['slice_baldrich'] : []),
+        ...(sliceDatasets.baldrich_cluster_slice ? ['slice_baldrich_gstar'] : []),
         ...(sliceDatasets.gruden ? ['slice_gruden'] : []),
         ...['pare_pinfes_ctrl', 'pare_pinfes_infec'].filter(d => sliceDatasets[d]).map(d => `slice_${d}`)
       ];
@@ -56,8 +59,10 @@ export default function BrowserPage() {
       const dmSliceTracks = [
         ...(dmSliceDatasets.mir ? ['DM_slice_mir'] : []),
         ...(dmSliceDatasets.gruden ? ['DM_slice_gruden'] : []),
-        ...(dmSliceDatasets.pare_pinfes_ctrl ? ['DM_slice_pare_pinfes_ctrl'] : []),
-        ...(dmSliceDatasets.pare_pinfes_infec ? ['DM_slice_pare_pinfes_infec'] : [])
+        ...(dmSliceDatasets.pare_pinfes_ctrl_ppr_slice ? ['DM_slice_pare_pinfes_ctrl'] : []),
+        ...(dmSliceDatasets.pare_pinfes_ctrl_cluster_slice ? ['DM_slice_pare_pinfes_ctrl_cluster'] : []),
+        ...(dmSliceDatasets.pare_pinfes_infec_ppr_slice ? ['DM_slice_pare_pinfes_infec'] : []),
+        ...(dmSliceDatasets.pare_pinfes_infec_cluster_slice ? ['DM_slice_pare_pinfes_infec_cluster'] : [])
       ];
       config = 'jbdm2/config.json';
       tracks = ['DM_gene_models', 'DM_ppr_transcript_regions', 'DM_gruden', 'DM_pare_pinfes_ctrl', 'DM_pare_pinfes_infec', ...dmSliceTracks].join(',');
@@ -83,7 +88,7 @@ export default function BrowserPage() {
           <span className="slice-panel-title">Slice tracks</span>
           <div className="slice-group">
             <span className="slice-group-label">Dataset:</span>
-            {['mir', 'baldrich', 'gruden', 'pare_pinfes_ctrl', 'pare_pinfes_infec'].map(d => (
+            {['mir', 'baldrich_ppr_slice', 'baldrich_cluster_slice', 'gruden', 'pare_pinfes_ctrl', 'pare_pinfes_infec'].map(d => (
               <label key={d} className="slice-checkbox">
                 <input type="checkbox" checked={sliceDatasets[d]}
                   onChange={e => setSliceDatasets(prev => ({ ...prev, [d]: e.target.checked }))} />
@@ -99,7 +104,7 @@ export default function BrowserPage() {
           <span className="slice-panel-title">Slice tracks</span>
           <div className="slice-group">
             <span className="slice-group-label">Dataset:</span>
-            {['mir', 'gruden', 'pare_pinfes_ctrl', 'pare_pinfes_infec'].map(d => (
+            {['mir', 'gruden', 'pare_pinfes_ctrl_ppr_slice', 'pare_pinfes_ctrl_cluster_slice', 'pare_pinfes_infec_ppr_slice', 'pare_pinfes_infec_cluster_slice'].map(d => (
               <label key={d} className="slice-checkbox">
                 <input type="checkbox" checked={dmSliceDatasets[d]}
                   onChange={e => setDmSliceDatasets(prev => ({ ...prev, [d]: e.target.checked }))} />

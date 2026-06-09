@@ -165,11 +165,25 @@
     {
       "type": "FeatureTrack",
       "trackId": "slice_baldrich",
-      "name": "baldrich slice",
+      "name": "baldrich_ppr_slice",
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
           "uri": "slice/baldrich/baldrich_leaf_condensed_rhppregion_21_23_clind.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "baldrich"],
+      "assemblyNames": ["RH89-039-16_potato_genome_assembly.v3"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "slice_baldrich_gstar",
+      "name": "baldrich_cluster_slice",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "slice/baldrich/baldrich_21_22_23nt.GSTAr.allenLT10.genome_slice.bed",
           "locationType": "UriLocation"
         }
       },
