@@ -1,6 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 
+const R2_BASE = 'https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev';
+
+function toUrl(path) {
+  if (path.startsWith('jbrowse/')) return `${R2_BASE}/${path.replace('jbrowse/', '')}`;
+  return `${process.env.PUBLIC_URL}/${path}`;
+}
+
 const FASTA_SOURCES = [
   { label: 'RH / baldrich 21-23nt condensed (PPR sRNA)', genome: 'RH', dataset: 'baldrich_condensed', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_condensed_rhppregion_21_23.fa' },
   { label: 'RH / baldrich read count > 5 read len 21 to 23nt', genome: 'RH', dataset: 'baldrich_reads', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_aligned_read5_21_23.fa' },
@@ -25,8 +32,10 @@ const FASTA_SOURCES = [
 const BED_SOURCES = [
   { label: 'ctrl / clind 421ft', condition: 'ctrl', method: 'clind', path: 'jbrowse/jbdm2/slice/pare_pinfes_ctrl/fortas/pare_pinfes_ctrl_dmfull_has_clus_region_clind_421ft.bed' },
   { label: 'ctrl / gstar 421ft', condition: 'ctrl', method: 'gstar', path: 'jbrowse/jbdm2/slice/pare_pinfes_ctrl/fortas/stu_mir_read5_dedup.fa_gstar.bed' },
+  { label: 'ctrl / ppr-sRNA as slicers', condition: 'ctrl', method: 'clind', path: 'jbrowse/jbdm2/slice/pare_pinfes_ctrl/merged_dm_in_ppr_region_21_23_clind_421ft.bed' },
   { label: 'infec / clind 421ft', condition: 'infec', method: 'clind', path: 'jbrowse/jbdm2/slice/pare_pinfes_infec/fortas/pare_pinfes_infec_dmfull_has_clus_region_clind_421ft.bed' },
   { label: 'infec / gstar 421ft', condition: 'infec', method: 'gstar', path: 'jbrowse/jbdm2/slice/pare_pinfes_infec/fortas/stu_mir_read5_dedup.fa_gstar.bed' },
+  { label: 'infec / ppr-sRNA as slicers', condition: 'infec', method: 'clind', path: 'jbrowse/jbdm2/slice/pare_pinfes_infec/merged_dm_in_ppr_region_21_23_clind_421ft.bed' },
 ];
 
 function normalize(seq) {
@@ -68,16 +77,28 @@ function parseBed(text) {
 }
 
 function bestAlignment(query, subject, maxMismatches) {
-  if (subject.length > query.length) return null;
   let best = null;
-  for (let i = 0; i <= query.length - subject.length; i++) {
-    let mm = 0;
-    for (let j = 0; j < subject.length; j++) {
-      if (query[i + j] !== subject[j]) mm++;
-      if (mm > maxMismatches) break;
+  if (subject.length <= query.length) {
+    // subject fits within query — slide subject along query
+    for (let i = 0; i <= query.length - subject.length; i++) {
+      let mm = 0;
+      for (let j = 0; j < subject.length; j++) {
+        if (query[i + j] !== subject[j]) mm++;
+        if (mm > maxMismatches) break;
+      }
+      if (mm <= maxMismatches && (!best || mm < best.mismatches))
+        best = { mismatches: mm, queryStart: i + 1, queryEnd: i + subject.length };
     }
-    if (mm <= maxMismatches && (!best || mm < best.mismatches)) {
-      best = { mismatches: mm, queryStart: i + 1, queryEnd: i + subject.length };
+  } else {
+    // query fits within subject — slide query along subject
+    for (let i = 0; i <= subject.length - query.length; i++) {
+      let mm = 0;
+      for (let j = 0; j < query.length; j++) {
+        if (subject[i + j] !== query[j]) mm++;
+        if (mm > maxMismatches) break;
+      }
+      if (mm <= maxMismatches && (!best || mm < best.mismatches))
+        best = { mismatches: mm, queryStart: i + 1, queryEnd: i + query.length };
     }
   }
   return best;
@@ -120,6 +141,16 @@ export default function BlastPage() {
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState(null);
   const cacheRef = useRef({});
+  const textareaRef = useRef(null);
+
+  function handleSeqIdClick(name) {
+    setSearchMode('header');
+    setQuery(name);
+    setResults(null);
+    setBedResults(null);
+    textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => textareaRef.current?.focus(), 300);
+  }
 
   async function handleSearch() {
     const raw = query.trim();
@@ -133,11 +164,14 @@ export default function BlastPage() {
     try {
       // ── FASTA search ────────────────────────────────────────────────────────
       const allResults = [];
+      const loadErrors = [];
       for (const source of FASTA_SOURCES) {
         if (!cacheRef.current[source.path]) {
-          const res = await fetch(`${process.env.PUBLIC_URL}/${source.path}`);
-          if (!res.ok) throw new Error(`Failed to load ${source.label}: HTTP ${res.status}`);
-          cacheRef.current[source.path] = parseFasta(await res.text());
+          try {
+            const res = await fetch(toUrl(source.path));
+            if (!res.ok) { loadErrors.push(`${source.label}: HTTP ${res.status}`); continue; }
+            cacheRef.current[source.path] = parseFasta(await res.text());
+          } catch (e) { loadErrors.push(`${source.label}: ${e.message}`); continue; }
         }
         const entries = cacheRef.current[source.path];
 
@@ -152,13 +186,14 @@ export default function BlastPage() {
           hits.forEach(h => allResults.push({ ...h, ...source }));
         }
       }
+      if (loadErrors.length > 0) setError(`Some sources failed to load: ${loadErrors.join('; ')}`);
       setResults(allResults);
 
       // ── BED slice search (always runs on name field) ─────────────────────
       const allBedResults = [];
       for (const source of BED_SOURCES) {
         if (!cacheRef.current[source.path]) {
-          const res = await fetch(`${process.env.PUBLIC_URL}/${source.path}`);
+          const res = await fetch(toUrl(source.path));
           if (!res.ok) continue;
           cacheRef.current[source.path] = parseBed(await res.text());
         }
@@ -200,6 +235,7 @@ export default function BlastPage() {
           ))}
         </div>
         <textarea
+          ref={textareaRef}
           className="blast-textarea"
           placeholder={searchMode === 'sequence'
             ? 'Paste sequence here (FASTA or plain DNA/RNA)…'
@@ -246,6 +282,7 @@ export default function BlastPage() {
               <div className="blast-group-header">
                 <span className="category-tag">{group.genome}</span> {group.label}
                 <span className="blast-hit-count">{group.hits.length} hit{group.hits.length !== 1 ? 's' : ''}</span>
+                <button className="blast-copy-btn" onClick={() => navigator.clipboard.writeText(group.hits.map(h => h.name).join('\n'))}>Copy IDs</button>
               </div>
               <table className="blast-table">
                 <thead>
@@ -258,7 +295,7 @@ export default function BlastPage() {
                 <tbody>
                   {group.hits.map((hit, i) => (
                     <tr key={i}>
-                      <td className="blast-seqid">{hit.name}</td>
+                      <td className="blast-seqid blast-seqid-link" onClick={() => handleSeqIdClick(hit.name)} title="Click to search by this ID">{hit.name}</td>
                       {searchMode === 'sequence' && (
                         <><td>{hit.strand}</td><td>{hit.queryStart}–{hit.queryEnd}</td><td>{hit.mismatches}</td></>
                       )}

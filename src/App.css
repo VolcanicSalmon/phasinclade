@@ -311,3 +311,28 @@
   font-family: monospace;
   letter-spacing: 0.05em;
 }
+
+.blast-copy-btn {
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.blast-copy-btn:hover {
+  background: #e2e8f0;
+}
+
+.blast-seqid-link {
+  cursor: pointer;
+  color: #2563eb;
+}
+
+.blast-seqid-link:hover {
+  text-decoration: underline;
+  background: #eff6ff;
+}

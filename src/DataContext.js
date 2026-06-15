@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { applyTransforms, parseNewick, pruneTree, serializeNewick, parseBed } from './utils';
 
+const R2_BASE = 'https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev';
+function r2(path) { return `${R2_BASE}/${path}`; }
+
 const DataContext = createContext(null);
 
 export function DataProvider({ children }) {
@@ -18,9 +21,9 @@ export function DataProvider({ children }) {
       try {
         const [nwkRes, rhBedRes, dmBedRes, nbBedRes, cladeRes] = await Promise.all([
           fetch(`${process.env.PUBLIC_URL}/data/pfatrerhodm_2305.nwk`),
-          fetch(`${process.env.PUBLIC_URL}/jbrowse/jbrh/RH_PPR_transcript_regions.bed`),
-          fetch(`${process.env.PUBLIC_URL}/jbrowse/jbdm2/DM_PPR_transcript_regions.bed`),
-          fetch(`${process.env.PUBLIC_URL}/jbrowse/jbnb/NbeHZ1_ppr_transcript_regions.bed`),
+          fetch(r2('jbrh/RH_PPR_transcript_regions.bed')),
+          fetch(r2('jbdm2/DM_PPR_transcript_regions.bed')),
+          fetch(r2('jbnb/NbeHZ1_ppr_transcript_regions.bed')),
           fetch(`${process.env.PUBLIC_URL}/data/itol_clade_renamed.txt`)
         ]);
         if (!nwkRes.ok) throw new Error(`Newick: HTTP ${nwkRes.status}`);
