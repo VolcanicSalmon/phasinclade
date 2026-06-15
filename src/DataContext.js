@@ -29,11 +29,12 @@ export function DataProvider({ children }) {
         if (!nwkRes.ok) throw new Error(`Newick: HTTP ${nwkRes.status}`);
         if (!rhBedRes.ok) throw new Error(`RH BED: HTTP ${rhBedRes.status}`);
         if (!dmBedRes.ok) throw new Error(`DM BED: HTTP ${dmBedRes.status}`);
-        if (!nbBedRes.ok) throw new Error(`NB BED: HTTP ${nbBedRes.status}`);
         if (!cladeRes.ok) throw new Error(`Richclade: HTTP ${cladeRes.status}`);
 
         const [nwkText, rhBedText, dmBedText, nbBedText, cladeText] = await Promise.all([
-          nwkRes.text(), rhBedRes.text(), dmBedRes.text(), nbBedRes.text(), cladeRes.text()
+          nwkRes.text(), rhBedRes.text(), dmBedRes.text(),
+          nbBedRes.ok ? nbBedRes.text() : Promise.resolve(''),
+          cladeRes.text()
         ]);
 
         const keepSet = new Set(
