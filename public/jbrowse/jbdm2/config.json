@@ -8,11 +8,11 @@
         "adapter": {
           "type": "IndexedFastaAdapter",
           "fastaLocation": {
-            "uri": "DM_1-3_516_R44_potato_genome_assembly.v6.1.fa",
+            "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/DM_1-3_516_R44_potato_genome_assembly.v6.1.fa",
             "locationType": "UriLocation"
           },
           "faiLocation": {
-            "uri": "DM_1-3_516_R44_potato_genome_assembly.v6.1.fa.fai",
+            "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/DM_1-3_516_R44_potato_genome_assembly.v6.1.fa.fai",
             "locationType": "UriLocation"
           }
         }
@@ -32,7 +32,7 @@
       "adapter": {
         "type": "Gff3Adapter",
         "gffLocation": {
-          "uri": "DM_1-3_516_R44_potato.v6.1.hc_gene_models.gff3",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/DM_1-3_516_R44_potato.v6.1.hc_gene_models.gff3",
           "locationType": "UriLocation"
         }
       },
@@ -47,7 +47,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "DM_PPR_transcript_regions.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/DM_PPR_transcript_regions.bed",
           "locationType": "UriLocation"
         }
       },
@@ -63,7 +63,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "gruden_passdeg_allnt.dedup.dm.sorted.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/gruden_passdeg_allnt.dedup.dm.sorted.bed",
           "locationType": "UriLocation"
         }
       },
@@ -79,7 +79,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "pare_pinfes_ctrl.indm_merged_alignments.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/pare_pinfes_ctrl.indm_merged_alignments.bed",
           "locationType": "UriLocation"
         }
       },
@@ -95,7 +95,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "pare_pinfes_infec.indm_merged_alignments.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/pare_pinfes_infec.indm_merged_alignments.bed",
           "locationType": "UriLocation"
         }
       },
@@ -111,7 +111,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/mir/cl_mir_leaf_dm_ppregion2.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/mir/cl_mir_leaf_dm_ppregion2.bed",
           "locationType": "UriLocation"
         }
       },
@@ -125,7 +125,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/gruden/gruden_passdeg_21_22_23nt.GSTAr.allenLT10.genome_slice_dmppregion.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/gruden/gruden_passdeg_21_22_23nt.GSTAr.allenLT10.genome_slice_dmppregion.bed",
           "locationType": "UriLocation"
         }
       },
@@ -139,7 +139,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/pare_pinfes_ctrl/merged_dm_in_ppr_region_21_23_clind.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_ctrl/merged_dm_in_ppr_region_21_23_clind.bed",
           "locationType": "UriLocation"
         }
       },
@@ -153,7 +153,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/pare_pinfes_infec/merged_dm_in_ppr_region_21_23_clind.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_infec/merged_dm_in_ppr_region_21_23_clind.bed",
           "locationType": "UriLocation"
         }
       },
@@ -167,7 +167,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/pare_pinfes_ctrl/ctrl_indm_clppregion.genome_slice.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_ctrl/ctrl_indm_clppregion.genome_slice.bed",
           "locationType": "UriLocation"
         }
       },
@@ -181,11 +181,95 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/pare_pinfes_infec/infec_indm_clppregion.genome_slice.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_infec/infec_indm_clppregion.genome_slice.bed",
           "locationType": "UriLocation"
         }
       },
       "category": ["Slice", "pare_pinfes_infec"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_pare_pinfes_ctrl_fortas_clind",
+      "name": "pare_pinfes_ctrl fortas clind",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_ctrl/fortas/pare_pinfes_ctrl_dmfull_has_clus_region_clind.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "pare_pinfes_ctrl", "fortas"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_pare_pinfes_ctrl_fortas_clind_421ft",
+      "name": "pare_pinfes_ctrl fortas clind 421ft",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_ctrl/fortas/pare_pinfes_ctrl_dmfull_has_clus_region_clind_421ft.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "pare_pinfes_ctrl", "fortas"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_pare_pinfes_ctrl_fortas_gstar_421ft",
+      "name": "pare_pinfes_ctrl fortas gstar 421ft",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_ctrl/fortas/stu_mir_read5_dedup.fa_gstar.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "pare_pinfes_ctrl", "fortas"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_pare_pinfes_infec_fortas_clind",
+      "name": "pare_pinfes_infec fortas clind",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_infec/fortas/pare_pinfes_infec_dmfull_has_clus_region_clind.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "pare_pinfes_infec", "fortas"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_pare_pinfes_infec_fortas_clind_421ft",
+      "name": "pare_pinfes_infec fortas clind 421ft",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_infec/fortas/pare_pinfes_infec_dmfull_has_clus_region_clind_421ft.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "pare_pinfes_infec", "fortas"],
+      "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "DM_slice_pare_pinfes_infec_fortas_gstar_421ft",
+      "name": "pare_pinfes_infec fortas gstar 421ft",
+      "adapter": {
+        "type": "BedAdapter",
+        "bedLocation": {
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/slice/pare_pinfes_infec/fortas/stu_mir_read5_dedup.fa_gstar.bed",
+          "locationType": "UriLocation"
+        }
+      },
+      "category": ["Slice", "pare_pinfes_infec", "fortas"],
       "assemblyNames": ["DM_1-3_516_R44_potato_genome_assembly.v6.1"]
     }
   ]

@@ -8,11 +8,11 @@
         "adapter": {
           "type": "IndexedFastaAdapter",
           "fastaLocation": {
-            "uri": "RH89-039-16_potato_genome_assembly.v3.fa",
+            "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/RH89-039-16_potato_genome_assembly.v3.fa",
             "locationType": "UriLocation"
           },
           "faiLocation": {
-            "uri": "RH89-039-16_potato_genome_assembly.v3.fa.fai",
+            "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/RH89-039-16_potato_genome_assembly.v3.fa.fai",
             "locationType": "UriLocation"
           }
         }
@@ -32,7 +32,7 @@
       "adapter": {
         "type": "Gff3Adapter",
         "gffLocation": {
-          "uri": "RH89-039-16_potato_gene_models.v3.gff3",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/RH89-039-16_potato_gene_models.v3.gff3",
           "locationType": "UriLocation"
         }
       },
@@ -47,7 +47,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "RH_PPR_transcript_regions.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/RH_PPR_transcript_regions.bed",
           "locationType": "UriLocation"
         }
       },
@@ -63,7 +63,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "baldrich_leaf_condensed_on_RHPPR.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/baldrich_leaf_condensed_on_RHPPR.bed",
           "locationType": "UriLocation"
         }
       },
@@ -79,7 +79,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "gruden_passdeg_allnt.dedup.rh.sorted.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/gruden_passdeg_allnt.dedup.rh.sorted.bed",
           "locationType": "UriLocation"
         }
       },
@@ -95,7 +95,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "pare_pinfes_ctrl.inrh_merged_alignments.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/pare_pinfes_ctrl.inrh_merged_alignments.bed",
           "locationType": "UriLocation"
         }
       },
@@ -111,7 +111,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "pare_pinfes_infec.inrh_merged_alignments.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/pare_pinfes_infec.inrh_merged_alignments.bed",
           "locationType": "UriLocation"
         }
       },
@@ -127,7 +127,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/pare_pinfes_ctrl/ctrl_inrh_clppr.TSlice_genome.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/slice/pare_pinfes_ctrl/ctrl_inrh_clppr.TSlice_genome.bed",
           "locationType": "UriLocation"
         }
       },
@@ -141,7 +141,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/pare_pinfes_infec/infec_inrh_clppr.TSlice_genome.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/slice/pare_pinfes_infec/infec_inrh_clppr.TSlice_genome.bed",
           "locationType": "UriLocation"
         }
       },
@@ -155,7 +155,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/mir/cl_mir_leaf_rh_ppregion2.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/slice/mir/cl_mir_leaf_rh_ppregion2.bed",
           "locationType": "UriLocation"
         }
       },
@@ -169,7 +169,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/baldrich/baldrich_leaf_condensed_rhppregion_21_23_clind.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/slice/baldrich/baldrich_leaf_condensed_rhppregion_21_23_clind.bed",
           "locationType": "UriLocation"
         }
       },
@@ -183,7 +183,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/baldrich/baldrich_21_22_23nt.GSTAr.allenLT10.genome_slice.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/slice/baldrich/baldrich_21_22_23nt.GSTAr.allenLT10.genome_slice.bed",
           "locationType": "UriLocation"
         }
       },
@@ -197,7 +197,7 @@
       "adapter": {
         "type": "BedAdapter",
         "bedLocation": {
-          "uri": "slice/gruden/gruden_passdeg_21_22_23nt.GSTAr.allenLT10.genome_slice_rhppregion.bed",
+          "uri": "https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/slice/gruden/gruden_passdeg_21_22_23nt.GSTAr.allenLT10.genome_slice_rhppregion.bed",
           "locationType": "UriLocation"
         }
       },

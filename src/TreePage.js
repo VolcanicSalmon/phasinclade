@@ -4,6 +4,8 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router';
 import { useData } from './DataContext';
 
+const SHINY_URL = 'https://YOUR-USERNAME.shinyapps.io/clinsegtx';
+
 const CATEGORY_OPTIONS = [
   { value: 'rh', label: 'Potato RH' },
   { value: 'dm', label: 'Potato DM' },
@@ -67,6 +69,7 @@ export default function TreePage() {
       <div className="tree-header">
         <h2>PPR sRNA subclade</h2>
         <button className="back-btn" onClick={() => navigate('/blast')}>sRNA search</button>
+        <button className="back-btn" onClick={() => window.open(SHINY_URL, '_blank')}>TX viewer</button>
         <div className="gene-select-bar">
           <Select
             value={CATEGORY_OPTIONS.find(o => o.value === selectedCategory)}

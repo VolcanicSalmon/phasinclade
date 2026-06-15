@@ -2,21 +2,31 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 
 const FASTA_SOURCES = [
-  { label: 'RH / baldrich 21-23nt condensed', genome: 'RH', dataset: 'baldrich_condensed', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_condensed_rhppregion_21_23.fa' },
+  { label: 'RH / baldrich 21-23nt condensed (PPR sRNA)', genome: 'RH', dataset: 'baldrich_condensed', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_condensed_rhppregion_21_23.fa' },
+  { label: 'RH / baldrich read count > 5 read len 21 to 23nt', genome: 'RH', dataset: 'baldrich_reads', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_aligned_read5_21_23.fa' },
   { label: 'RH / baldrich 21nt', genome: 'RH', dataset: 'baldrich_21nt', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_21nt.fa' },
   { label: 'RH / baldrich 22nt', genome: 'RH', dataset: 'baldrich_22nt', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_22nt.fa' },
   { label: 'RH / baldrich 23nt', genome: 'RH', dataset: 'baldrich_23nt', path: 'jbrowse/jbrh/srnaseq/baldrich/baldrich_leaf_23nt.fa' },
   { label: 'RH / pare_pinfes_ctrl', genome: 'RH', dataset: 'pare_pinfes_ctrl', path: 'jbrowse/jbrh/srnaseq/pare_pinfes_ctrl.inrh/Results_21_23.fa' },
   { label: 'RH / pare_pinfes_infec', genome: 'RH', dataset: 'pare_pinfes_infec', path: 'jbrowse/jbrh/srnaseq/pare_pinfes_infec.inrh/Results_21_23.fa' },
-  { label: 'DM / pare_pinfes_ctrl (PPR)', genome: 'DM', dataset: 'pare_pinfes_ctrl_ppr', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_ctrl.indm/merged_dm_in_ppr_region_21_23.fa' },
-  { label: 'DM / pare_pinfes_infec (PPR)', genome: 'DM', dataset: 'pare_pinfes_infec_ppr', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_infec.indm/merged_dm_in_ppr_region_21_23.fa' },
-  { label: 'DM / pare_pinfes_ctrl', genome: 'DM', dataset: 'pare_pinfes_ctrl', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_ctrl.indm/Results_21_23.fa' },
-  { label: 'DM / pare_pinfes_infec', genome: 'DM', dataset: 'pare_pinfes_infec', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_infec.indm/Results_21_23.fa' },
+  { label: 'DM / pare_pinfes_ctrl (PPR sRNA)', genome: 'DM', dataset: 'pare_pinfes_ctrl_ppr', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_ctrl.indm/merged_dm_in_ppr_region_21_23.fa' },
+  { label: 'DM / pare_pinfes_infec (PPR sRNA)', genome: 'DM', dataset: 'pare_pinfes_infec_ppr', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_infec.indm/merged_dm_in_ppr_region_21_23.fa' },
+  { label: 'DM / pare_pinfes_ctrl cluster majority sequences', genome: 'DM', dataset: 'pare_pinfes_ctrl', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_ctrl.indm/Results_21_23.fa' },
+  { label: 'DM / pare_pinfes_infec cluster majority sequences', genome: 'DM', dataset: 'pare_pinfes_infec', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_infec.indm/Results_21_23.fa' },
+  { label: 'DM / pare_pinfes_ctrl read count > 5 read len 21 to 23nt', genome: 'DM', dataset: 'pare_pinfes_ctrl_reads', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_ctrl.indm/merged_alignments_21_23_read5.fa' },
+  { label: 'DM / pare_pinfes_infec read count > 5 read len 21 to 23nt', genome: 'DM', dataset: 'pare_pinfes_infec_reads', path: 'jbrowse/jbdm2/srnaseq/pare_pinfes_infec.indm/merged_alignments_21_23_read5.fa' },
   { label: 'DM / gruden 21nt', genome: 'DM', dataset: 'gruden_21nt', path: 'jbrowse/jbdm2/srnaseq/gruden/gruden_passdeg_21nt.dedup.fa' },
   { label: 'DM / gruden 22nt', genome: 'DM', dataset: 'gruden_22nt', path: 'jbrowse/jbdm2/srnaseq/gruden/gruden_passdeg_22nt.dedup.fa' },
   { label: 'DM / gruden 23nt', genome: 'DM', dataset: 'gruden_23nt', path: 'jbrowse/jbdm2/srnaseq/gruden/gruden_passdeg_23nt.dedup.fa' },
   { label: 'Solath mature miRNA', genome: 'Solath', dataset: 'solath_mature', path: 'data/solath_mature.fa' },
   { label: 'NB / baksa (PPR)', genome: 'NB', dataset: 'baksa_ppr', path: 'jbrowse/jbnb/srnaseq/baksa/merged_benth_in_ppr_region_21_23.fa' },
+];
+
+const BED_SOURCES = [
+  { label: 'ctrl / clind 421ft', condition: 'ctrl', method: 'clind', path: 'jbrowse/jbdm2/slice/pare_pinfes_ctrl/fortas/pare_pinfes_ctrl_dmfull_has_clus_region_clind_421ft.bed' },
+  { label: 'ctrl / gstar 421ft', condition: 'ctrl', method: 'gstar', path: 'jbrowse/jbdm2/slice/pare_pinfes_ctrl/fortas/stu_mir_read5_dedup.fa_gstar.bed' },
+  { label: 'infec / clind 421ft', condition: 'infec', method: 'clind', path: 'jbrowse/jbdm2/slice/pare_pinfes_infec/fortas/pare_pinfes_infec_dmfull_has_clus_region_clind_421ft.bed' },
+  { label: 'infec / gstar 421ft', condition: 'infec', method: 'gstar', path: 'jbrowse/jbdm2/slice/pare_pinfes_infec/fortas/stu_mir_read5_dedup.fa_gstar.bed' },
 ];
 
 function normalize(seq) {
@@ -46,6 +56,15 @@ function parseFasta(text) {
   }
   if (name !== null && seq) entries.push({ name, seq });
   return entries;
+}
+
+function parseBed(text) {
+  return text.split('\n')
+    .filter(l => l.trim() && !l.startsWith('#'))
+    .map(l => {
+      const f = l.split('\t');
+      return { chr: f[0], start: f[1], end: f[2], name: f[3] || '', score: f[4] || '', strand: f[5] || '', extra: f.slice(6) };
+    });
 }
 
 function bestAlignment(query, subject, maxMismatches) {
@@ -79,10 +98,15 @@ function searchQuery(querySeq, fastaEntries, maxMismatches) {
 }
 
 function searchHeader(queryText, fastaEntries) {
-  const q = queryText.toLowerCase();
+  const terms = queryText.toLowerCase().split(/[\s,]+/).filter(Boolean);
   return fastaEntries
-    .filter(({ name }) => name.toLowerCase().includes(q))
+    .filter(({ name }) => terms.some(t => name.toLowerCase().includes(t)))
     .map(({ name, seq }) => ({ name, seq }));
+}
+
+function searchBed(queryText, bedRows) {
+  const terms = queryText.toLowerCase().split(/[\s,]+/).filter(Boolean);
+  return bedRows.filter(row => terms.some(t => row.name.toLowerCase().includes(t)));
 }
 
 export default function BlastPage() {
@@ -92,6 +116,7 @@ export default function BlastPage() {
   const [maxMismatches, setMaxMismatches] = useState(0);
   const [autoTranscribe, setAutoTranscribe] = useState(false);
   const [results, setResults] = useState(null);
+  const [bedResults, setBedResults] = useState(null);
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState(null);
   const cacheRef = useRef({});
@@ -103,8 +128,10 @@ export default function BlastPage() {
     setSearching(true);
     setError(null);
     setResults(null);
+    setBedResults(null);
 
     try {
+      // ── FASTA search ────────────────────────────────────────────────────────
       const allResults = [];
       for (const source of FASTA_SOURCES) {
         if (!cacheRef.current[source.path]) {
@@ -126,6 +153,21 @@ export default function BlastPage() {
         }
       }
       setResults(allResults);
+
+      // ── BED slice search (always runs on name field) ─────────────────────
+      const allBedResults = [];
+      for (const source of BED_SOURCES) {
+        if (!cacheRef.current[source.path]) {
+          const res = await fetch(`${process.env.PUBLIC_URL}/${source.path}`);
+          if (!res.ok) continue;
+          cacheRef.current[source.path] = parseBed(await res.text());
+        }
+        const rows = cacheRef.current[source.path];
+        const hits = searchBed(raw, rows);
+        if (hits.length > 0) allBedResults.push({ ...source, hits });
+      }
+      setBedResults(allBedResults);
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -152,7 +194,7 @@ export default function BlastPage() {
           {['sequence', 'header'].map(m => (
             <label key={m} className="slice-radio">
               <input type="radio" name="searchMode" value={m}
-                checked={searchMode === m} onChange={() => { setSearchMode(m); setResults(null); }} />
+                checked={searchMode === m} onChange={() => { setSearchMode(m); setResults(null); setBedResults(null); }} />
               {m === 'sequence' ? 'Sequence search' : 'Header / ID search'}
             </label>
           ))}
@@ -161,7 +203,7 @@ export default function BlastPage() {
           className="blast-textarea"
           placeholder={searchMode === 'sequence'
             ? 'Paste sequence here (FASTA or plain DNA/RNA)…'
-            : 'Type cluster name, coordinates, or any header text…'}
+            : 'Type read ID, cluster name, slicer ID… (space or comma separated for multiple)'}
           value={query}
           onChange={e => setQuery(e.target.value)}
           rows={searchMode === 'sequence' ? 5 : 2}
@@ -191,38 +233,81 @@ export default function BlastPage() {
 
       {error && <div className="error-message">{error}</div>}
 
-      {results !== null && results.length === 0 && (
-        <div className="blast-no-results">No matches found across all datasets.</div>
-      )}
+      <div className="blast-split">
 
-      {grouped.map(group => (
-        <div key={group.path} className="blast-result-group">
-          <div className="blast-group-header">
-            <span className="category-tag">{group.genome}</span> {group.label}
-            <span className="blast-hit-count">{group.hits.length} hit{group.hits.length !== 1 ? 's' : ''}</span>
-          </div>
-          <table className="blast-table">
-            <thead>
-              <tr>
-                <th>Sequence ID</th>
-                {searchMode === 'sequence' && <><th>Strand</th><th>Query pos.</th><th>Mismatches</th></>}
-                <th>sRNA sequence</th>
-              </tr>
-            </thead>
-            <tbody>
-              {group.hits.map((hit, i) => (
-                <tr key={i}>
-                  <td className="blast-seqid">{hit.name}</td>
-                  {searchMode === 'sequence' && (
-                    <><td>{hit.strand}</td><td>{hit.queryStart}–{hit.queryEnd}</td><td>{hit.mismatches}</td></>
-                  )}
-                  <td className="blast-seq">{autoTranscribe ? toRna(hit.seq) : hit.seq}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {/* ── Left: FASTA results ─────────────────────────────────────────── */}
+        <div className="blast-split-left">
+          <h3 className="blast-panel-title">sRNA sequences</h3>
+          {results !== null && grouped.length === 0 && (
+            <div className="blast-no-results">No matches found.</div>
+          )}
+          {grouped.map(group => (
+            <div key={group.path} className="blast-result-group">
+              <div className="blast-group-header">
+                <span className="category-tag">{group.genome}</span> {group.label}
+                <span className="blast-hit-count">{group.hits.length} hit{group.hits.length !== 1 ? 's' : ''}</span>
+              </div>
+              <table className="blast-table">
+                <thead>
+                  <tr>
+                    <th>Sequence ID</th>
+                    {searchMode === 'sequence' && <><th>Strand</th><th>Query pos.</th><th>Mismatches</th></>}
+                    <th>sRNA sequence</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {group.hits.map((hit, i) => (
+                    <tr key={i}>
+                      <td className="blast-seqid">{hit.name}</td>
+                      {searchMode === 'sequence' && (
+                        <><td>{hit.strand}</td><td>{hit.queryStart}–{hit.queryEnd}</td><td>{hit.mismatches}</td></>
+                      )}
+                      <td className="blast-seq">{autoTranscribe ? toRna(hit.seq) : hit.seq}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
         </div>
-      ))}
+
+        {/* ── Right: BED slice results ────────────────────────────────────── */}
+        <div className="blast-split-right">
+          <h3 className="blast-panel-title">Slice sites (fortas BED)</h3>
+          {bedResults !== null && bedResults.length === 0 && (
+            <div className="blast-no-results">No slice matches found.</div>
+          )}
+          {bedResults && bedResults.map(group => (
+            <div key={group.path} className="blast-result-group">
+              <div className="blast-group-header">
+                <span className="category-tag">{group.condition}</span> {group.label}
+                <span className="blast-hit-count">{group.hits.length} hit{group.hits.length !== 1 ? 's' : ''}</span>
+              </div>
+              <table className="blast-table">
+                <thead>
+                  <tr>
+                    <th>Location</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Strand</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {group.hits.map((row, i) => (
+                    <tr key={i}>
+                      <td className="blast-seqid">{row.chr}:{row.start}-{row.end}</td>
+                      <td className="blast-seqid">{row.name}</td>
+                      <td>{row.score}</td>
+                      <td>{row.strand}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
+
+      </div>
     </div>
   );
 }
