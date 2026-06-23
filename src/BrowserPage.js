@@ -47,13 +47,13 @@ export default function BrowserPage() {
         ...(sliceDatasets.gruden ? ['slice_gruden'] : []),
         ...['pare_pinfes_ctrl', 'pare_pinfes_infec'].filter(d => sliceDatasets[d]).map(d => `slice_${d}`)
       ];
-      config = 'jbrh/config.json';
+      config = 'https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbrh/config.json';
       tracks = ['RH_gene_models', 'ppr_transcript_regions', 'baldrich_condensed_sRNA', ...sliceTracks].join(',');
     } else if (category === 'nb') {
       const nbSliceTracks = [
         ...(nbSliceDatasets.baksa ? ['NB_slice_baksa'] : [])
       ];
-      config = 'jbnb/config.json';
+      config = 'https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbnb/config.json';
       tracks = ['NB_gene_models', 'NB_ppr_transcript_regions', 'NB_baksa', ...nbSliceTracks].join(',');
     } else {
       const dmSliceTracks = [
@@ -64,7 +64,7 @@ export default function BrowserPage() {
         ...(dmSliceDatasets.pare_pinfes_infec_ppr_slice ? ['DM_slice_pare_pinfes_infec'] : []),
         ...(dmSliceDatasets.pare_pinfes_infec_cluster_slice ? ['DM_slice_pare_pinfes_infec_cluster'] : [])
       ];
-      config = 'jbdm2/config.json';
+      config = 'https://pub-8225b0887dd84885a9d7a2259a789b4e.r2.dev/jbdm2/config.json';
       tracks = ['DM_gene_models', 'DM_ppr_transcript_regions', 'DM_gruden', 'DM_pare_pinfes_ctrl', 'DM_pare_pinfes_infec', ...dmSliceTracks].join(',');
     }
 
